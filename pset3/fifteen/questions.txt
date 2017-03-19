@@ -1,0 +1,4 @@
+0. 3x3 5x5 6x6
+1. multidimensional arrays
+2. greet
+3. init, draw, move, won
