@@ -74,15 +74,6 @@ string findCardType(long long card)
 {
     string cardType = "";
     
-    if(card) {
-        cardType = "AMEX";
-    }
-    
-    return cardType;
-}
-
-bool validateCard(long long card)
-{
     int cardNumLength = findLongLength(card);
     
     switch (cardNumLength) 
@@ -94,9 +85,15 @@ bool validateCard(long long card)
         case 16:
             break;
         default:
-            return false;
             break;
     }
+    
+    return cardType;
+}
 
+bool validateCard(long long card)
+{
+    
+    if(card) return true;
     return true;
 }
