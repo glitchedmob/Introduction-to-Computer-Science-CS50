@@ -14,6 +14,4 @@ int main(void)
     float bottles = totalOz / ozInBottle;
     
     printf("Bottles: %.1f\n", bottles);
-    
-    
 }
