@@ -11,17 +11,15 @@ bool validateCard(long long card);
 int main(void) 
 {
     long long cardNumber = getCardNumber();
-    
     string cardType = findCardType(cardNumber);
     string empty = "";
     
-    if(validateCard(cardNumber) && cardType != empty) {
+    if(cardType != empty && validateCard(cardNumber)) {
         printf("%s\n", cardType);
     } else {
         printf("INVALID\n");
     }
-    
-    printf("%i\n", findFirstDigits(cardNumber, 3));
+
     
     return 0;
 }
@@ -62,9 +60,10 @@ int findFirstDigits(long long num, int numOfDigits)
         divisor *= 10;
         numOfDigits--;
     }
+
     
     while (num >= divisor) {
-        num /= divisor;
+        num /= 10;
     }
     
     return num;
@@ -73,16 +72,38 @@ int findFirstDigits(long long num, int numOfDigits)
 string findCardType(long long card)
 {
     string cardType = "";
-    
     int cardNumLength = findLongLength(card);
-    
+
     switch (cardNumLength) 
     {
         case 15:
+            switch(findFirstDigits(card, 2)) 
+            {
+                case 34:
+                case 37:
+                    cardType = "AMEX";
+                    break;
+            }
             break;
         case 13:
-            break;
         case 16:
+            switch(findFirstDigits(card, 1))
+            {
+                case 4:
+                    cardType = "VISA";
+                    break;
+            }
+            
+            switch(findFirstDigits(card, 2))
+            {
+                case 51:
+                case 52:
+                case 53:
+                case 54:
+                case 55:
+                    cardType = "MASTERCARD";
+                    break;
+            }
             break;
         default:
             break;
@@ -93,7 +114,29 @@ string findCardType(long long card)
 
 bool validateCard(long long card)
 {
+    long long evenCard = card / 10;
+    long long oddCard = card;
+    int total = 0;
+    for(int i = 0; i < (findLongLength(card) / 2) + 1; i++)
+    {
+        int evenDigit = evenCard % 10;
+        int oddDigit = oddCard % 10;
+        evenCard /= 100;
+        oddCard /= 100;
+        evenDigit *= 2;
+        
+        total += oddDigit;
+        
+        if(evenDigit / 10 > 0) {
+            total += 1 + (evenDigit % 10);
+        } else {
+            total += evenDigit;
+        }
+    }
     
-    if(card) return true;
-    return true;
+    if (total % 10 == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
