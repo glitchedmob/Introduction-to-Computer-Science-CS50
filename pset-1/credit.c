@@ -37,7 +37,7 @@ long long getCardNumber(void)
     return card;
 }
 
-// Returns the number of digits in a give long long
+// Returns the number of digits in a given long long
 int findLongLength(long long num)
 {
     int length = 0;
@@ -52,6 +52,7 @@ int findLongLength(long long num)
     return length;
 }
 
+// returns the first digits to the left of a given long long. 
 int findFirstDigits(long long num, int numOfDigits)
 {
     int divisor = 10;
@@ -69,6 +70,7 @@ int findFirstDigits(long long num, int numOfDigits)
     return num;
 }
 
+// Uses the length and first digits of a card number to classify it's type
 string findCardType(long long card)
 {
     string cardType = "";
@@ -112,8 +114,7 @@ string findCardType(long long card)
     return cardType;
 }
 
-bool validateCard(long long card)
-{
+// Implementation of Luhn’s algorithm. Takes a card number and returns true if valid, and flase if invaled.
     long long evenCard = card / 10;
     long long oddCard = card;
     int total = 0;
